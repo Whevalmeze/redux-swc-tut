@@ -2,8 +2,12 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Counter from './component/Counter'
+import usePosts from './apis/postApi'
 
 function App() {
+  const {data, error, isLoading} = usePosts()
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
   return (
     <>
       <div>
@@ -14,7 +18,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>{data?.title}</h1>
       <div className="card">
         <Counter />
         <p>
